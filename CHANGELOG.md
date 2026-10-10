@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.1.0
+
+Traz para o Humanizador a visão de uma skill de humanização de prosa acadêmica usada em uma tese de doutorado em português.
+
+- Nova seção "Texto acadêmico e técnico" depois de Voz: calibrar o verbo à evidência (mostrou, indica, fornece evidência preliminar, uma interpretação possível é), dar endereço a cada afirmação (seção, quadro, figura, fonte nomeada), trocar o adjetivo de avaliação pelo fato que o gerou, separar observação de interpretação e de conclusão, preservar a passagem entre evidência, comparação e mecanismo, manter a retomada de conceitos que sustenta o argumento e nunca reescrever citações literais.
+- O padrão 11 distingue a forma com "se" que tem o artefato como sujeito e um endereço ("verifica-se no Quadro 3"), que é voz legítima do gênero, da que esconde o agente ou enche a frase ("faz-se necessário", "pode-se observar uma melhora"). Ganhou um exemplo de forma legítima a deixar em paz.
+- O padrão 2 inclui os aforismos de fechamento do registro formal e de avaliação ("é o que distingue", "é o que sustenta", "é o cuidado que"), com exemplo próprio, e a regra de que a generalização, quando é o ponto, vira a frase principal.
+- O padrão 4 inclui "chama atenção que", "um trecho merece destaque porque", "o que salta aos olhos" e "aqui vale uma observação".
+- O padrão 7 cobre também sequências de frases do mesmo tamanho e estrutura, e pede a alternância entre período longo e veredito curto.
+- O padrão 12 inclui sólido, consistente, coerente, alinhado, maduro, bem estruturado, notório, exemplar, nítido e consolidado; manda trocar o adjetivo pelo fato e não por sinônimo; e poupa os conectivos que explicam uma relação (já que, porém, visto que, ou seja, mesmo que, devido a).
+- O padrão 17 inclui "a literatura aponta", "autores defendem" e "diversos autores".
+- O modo arquivo preserva comandos LaTeX, chaves bibliográficas, rótulos, referências cruzadas, equações e a vírgula decimal.
+- "Quando não agir" proíbe atribuir autoria humana ou artificial por estilo ou data, e guarda como voz o veredito seco, a concessão na mesma frase do elogio e a dúvida honesta.
+- Novo `scripts/contar-sinais.py`, que conta em arquivos os sinais que mais sobrevivem a uma reescrita, para comparar antes e depois no modo arquivo.
+- O teto do SKILL.md sobe para 8.000 palavras.
+
 ## 1.0.0
 
 Primeira versão em português, derivada da versão 3.1.0 da skill [Humanizer](https://github.com/blader/humanizer), de blader.

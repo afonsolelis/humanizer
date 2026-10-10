@@ -6,7 +6,7 @@ Este arquivo explica como alterar o Humanizador sem quebrar o pacote nem o promp
 
 O Humanizador é uma skill de agente escrita em Markdown. `SKILL.md` é o prompt que os agentes leem. O repositório não tem etapa de build.
 
-É uma adaptação para o português da skill [Humanizer](https://github.com/blader/humanizer), de blader. Os princípios e a estrutura em seis seções vêm de lá; as listas de palavras, os exemplos e os padrões 10 e 11 foram reescritos para o português.
+É uma adaptação para o português da skill [Humanizer](https://github.com/blader/humanizer), de blader. Os princípios e a estrutura em seis seções vêm de lá; as listas de palavras, os exemplos e os padrões 10 e 11 foram reescritos para o português. A seção "Texto acadêmico e técnico" e a regra de trocar o adjetivo pelo fato vêm de uma skill de humanização de prosa acadêmica usada em uma tese; mantenha-a geral, sem perfil de voz de uma pessoa específica, porque a amostra de voz do usuário já cobre isso.
 
 Mantenha a skill portátil. Não escreva instruções que a limitem a uma ou duas ferramentas de agente.
 
@@ -20,6 +20,7 @@ Mantenha a skill portátil. Não escreva instruções que a limitem a uma ou dua
 - `.cursor-plugin/plugin.json` descreve o plugin do Cursor. Omita o caminho `skills` para o Cursor carregar o `SKILL.md` da raiz.
 - `agents/openai.yaml` guarda o nome de exibição, a descrição curta e o prompt padrão para agentes compatíveis com a OpenAI.
 - `scripts/validate-package.py` confere os arquivos do pacote e os valores compartilhados.
+- `scripts/contar-sinais.py` conta em arquivos de texto os sinais que mais sobrevivem a uma reescrita. É uma checagem mecânica para o modo arquivo, não um detector. Se um padrão ganha ou perde uma expressão vigiada forte, atualize a regex correspondente.
 
 ## Regras para alterações
 
@@ -30,7 +31,7 @@ Mantenha `SKILL.md` e `README.md` sincronizados.
 - **Versão:** Mantenha a mesma versão em `SKILL.md` sob `metadata.version`, no primeiro título `## x.y.z` do `CHANGELOG.md`, em `.claude-plugin/plugin.json` e em `.cursor-plugin/plugin.json`. Não adicione um campo `version` de nível superior à skill.
 - **Compatibilidade:** Mantenha as instruções de instalação e uso neutras entre agentes. Nomes como Claude Code, Cursor e Codex são exemplos, não limites.
 - **Descrição:** Os manifests do plugin usam a primeira frase da `description` do `SKILL.md`.
-- **Tamanho:** Cada palavra do `SKILL.md` é lida a cada uso. O validador limita o arquivo a 7.000 palavras; o português corre cerca de 20% mais longo que o inglês, e esse teto já desconta isso. Uma alteração que acrescenta palavras precisa merecê-las.
+- **Tamanho:** Cada palavra do `SKILL.md` é lida a cada uso. O validador limita o arquivo a 8.000 palavras; o português corre cerca de 20% mais longo que o inglês, e a seção de texto acadêmico e técnico ocupa o resto da folga. Uma alteração que acrescenta palavras precisa merecê-las.
 - **Histórico:** Adicione uma nota curta ao `CHANGELOG.md` para qualquer mudança de comportamento ou correção não óbvia.
 - **Verificações:** Antes de publicar, rode `python3 scripts/validate-package.py`, `npx skills add . --list` e `claude plugin validate .`.
 

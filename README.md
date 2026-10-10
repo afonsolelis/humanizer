@@ -4,7 +4,7 @@
 
 O Humanizador faz texto em português escrito por IA soar como texto escrito por uma pessoa, sem mudar o que ele diz. É uma adaptação para o português da skill [Humanizer](https://github.com/blader/humanizer), de blader, que por sua vez se baseia em [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), o guia que os editores da Wikipédia usam para identificar texto gerado por IA. Funciona no Claude Code, no Codex e em qualquer outro agente que suporte skills.
 
-A versão original traz listas de palavras e exemplos em inglês. A lógica estrutural vale para o português, mas o vocabulário típico de IA nesta língua ("robusto", "alavancar", "nesse sentido", "vale ressaltar", "faz-se necessário") não aparecia nela. Esta versão reescreve as 26 listas e todos os exemplos para o português e adapta dois padrões aos hábitos dos modelos quando escrevem nesta língua.
+A versão original traz listas de palavras e exemplos em inglês. A lógica estrutural vale para o português, mas o vocabulário típico de IA nesta língua ("robusto", "alavancar", "nesse sentido", "vale ressaltar", "faz-se necessário") não aparecia nela. Esta versão reescreve as 26 listas e todos os exemplos para o português, adapta dois padrões aos hábitos dos modelos quando escrevem nesta língua e acrescenta uma seção para texto acadêmico e técnico, onde parte do que seria sinal em um post é a voz nativa do gênero.
 
 **Antes:**
 > É com grande entusiasmo que anunciamos que os rascunhos compartilhados finalmente chegaram! 🚀 Durante meses, nossa própria equipe se afogava em arquivos chamados final_v7.docx — e sabíamos que precisava haver uma forma melhor. Agora duas pessoas podem editar o mesmo documento ao mesmo tempo, com cada alteração aparecendo ao vivo para ambas. Não é apenas uma funcionalidade; é uma nova forma de colaborar. Vale ressaltar que os comentários permanecem ancorados à frase exata a que se referem, mesmo enquanto o texto ao redor evolui. E o melhor? Está disponível hoje em todos os planos, de forma totalmente gratuita. Pense nisso.
@@ -104,6 +104,10 @@ Um modelo de linguagem escreve o que tem mais chance de vir a seguir, então por
 
 O Humanizador marca cada sinal que encontra, do mais forte ao mais fraco. Rascunha uma reescrita sem tratar a estrutura original como fixa, confere o rascunho contra os padrões e contra as afirmações originais, e então escreve a versão final. Ele não inventa nada. Nome, número, data, citação, referência ou qualquer outro detalhe factual precisa vir da fonte ou do autor, e se uma frase precisa de um detalhe que falta, o Humanizador pergunta em vez de inventar.
 
+Em artigo, dissertação, relatório e documentação, o Humanizador calibra o verbo à evidência ("o teste mostrou" para medida direta, "os resultados indicam" para padrão descritivo, "fornece evidência preliminar" para caso único), exige que cada afirmação tenha endereço (seção, quadro, figura ou fonte nomeada), troca o adjetivo de avaliação pelo fato que o gerou e preserva a passagem entre evidência, comparação e mecanismo. A forma impessoal com "se" que tem o artefato como sujeito ("verifica-se no Quadro 3") é tratada como voz legítima do gênero; a que esconde o agente ("faz-se necessário") continua sendo sinal. Em LaTeX, só a prosa muda; comandos, chaves bibliográficas, rótulos, equações e citações literais ficam.
+
+O repositório traz também `scripts/contar-sinais.py`, que conta em um arquivo os sinais que mais sobrevivem a uma reescrita. Serve para comparar o antes e o depois, não para detectar IA.
+
 Quando você cola um texto, o Humanizador mostra o trabalho: a primeira reescrita, uma crítica curta do que ainda soa artificial e a versão final. Aponte-o para um arquivo e ele muda só a prosa, deixando código, dados, metadados e destinos de links em paz. Escrita pessoal mantém as opiniões e as manias do autor. Prosa técnica e de referência fica neutra e simples.
 
 ## Os 26 padrões
@@ -115,7 +119,7 @@ Os padrões estão numerados por força e frequência. Os cinco primeiros justif
 | # | Padrão | Antes | Depois |
 |---|--------|-------|--------|
 | 1 | **Não é X, é Y** | "Não é apenas X, é Y", "Isso não significa X. Significa Y.", "Mais do que X, Y" | Diga o ponto diretamente |
-| 2 | **Frases de fechamento e fragmentos dramáticos** | "Essa é a verdadeira vitória." depois de toda seção; "Isso mostra a importância de..." depois de um exemplo; "Sem viés. Sem nostalgia." | Corte o fechamento que repete ou explica o exemplo; junte os fragmentos em uma afirmação específica |
+| 2 | **Frases de fechamento e fragmentos dramáticos** | "Essa é a verdadeira vitória." depois de toda seção; "...é o que distingue um teste de uma conferência." depois de um fato; "Sem viés. Sem nostalgia." | Corte o fechamento que repete ou explica o exemplo; junte os fragmentos em uma afirmação específica |
 | 3 | **Frases que soam profundas** | "Em sua essência, o que realmente importa é...", "Simetria é a linguagem da confiança" | Troque a frase de efeito pela afirmação específica |
 | 4 | **Preparação encenada antes do ponto** | "Vamos mergulhar", "Vale ressaltar que...", "Sinceramente? Depende..." | Remova a preparação e diga o ponto |
 | 5 | **Discutir com ninguém** | "Não se trata principalmente de...", "Uma abordagem tentadora seria..." | Remova a objeção não levantada ou a opção falsa; mantenha qualquer afirmação real |
@@ -125,22 +129,22 @@ Os padrões estão numerados por força e frequência. Os cinco primeiros justif
 | # | Padrão | Antes | Depois |
 |---|--------|-------|--------|
 | 6 | **Tríades forçadas** | "inovação, inspiração e insights"; três exemplos mais uma lição | Use o número de itens que o sentido pede |
-| 7 | **Aberturas de frase repetidas** | "Ela reparou... Ela reparou... Ela guardou..." | Junte as frases ou mude o sujeito |
+| 7 | **Aberturas de frase repetidas** | "Ela reparou... Ela reparou... Ela guardou..."; três frases do mesmo tamanho e estrutura | Junte as frases, mude o sujeito ou alterne período longo e veredito curto |
 | 8 | **Travessão como conector universal** (*fraco sozinho*) | "as instituições — não as pessoas — e ainda assim —" | Use ponto, vírgula, dois-pontos ou parênteses; iguale uma amostra que usa travessões; mantenha o travessão de diálogo |
 | 9 | **Qualificadores empilhados** (*fraco sozinho*) | "poderia potencialmente, de certa forma, argumentar-se" | Mantenha só os qualificadores que a fonte sustenta |
 | 10 | **Calques do inglês** (*fraco sozinho*) | "endereçar o problema", "entregar valor", "eventualmente o time vai performar" | Use o verbo que um falante usaria: resolver, funcionar, no fim |
-| 11 | **Voz passiva, sujeito indeterminado e sujeito oculto** (*fraco sozinho*) | "Faz-se necessário configurar", "Pode-se observar uma melhora" | Nomeie quem age quando isso ajuda |
+| 11 | **Voz passiva, sujeito indeterminado e sujeito oculto** (*fraco sozinho*) | "Faz-se necessário configurar", "Pode-se observar uma melhora" (sem dizer onde) | Nomeie o agente, o lugar ou a medida; "verifica-se no Quadro 3" é voz legítima e fica |
 
 ### C. Inflação e autoridade emprestada
 
 | # | Padrão | Antes | Depois |
 |---|--------|-------|--------|
-| 12 | **Palavras típicas de IA** | "robusto... alavancar... nesse sentido... potencializar... cenário" | Use palavras simples |
+| 12 | **Palavras típicas de IA** | "robusto... sólido... consistente... alavancar... nesse sentido... potencializar" | Use palavras simples; troque o adjetivo de avaliação pelo fato que o gerou |
 | 13 | **Importância inflada** | "marcando um momento decisivo", "Apesar dos desafios... continua a prosperar", "O futuro é promissor" | Mantenha o fato e tire a importância; termine no último fato concreto |
 | 14 | **Conexão ou associação vaga** | "associado à liderança de", "no âmbito de" | Diga a relação que a fonte dá |
 | 15 | **Gerúndios de arremate** | "simbolizando... refletindo... evidenciando..." | Mantenha só o que a fonte sustenta |
 | 16 | **Linguagem de venda** | "aninhada na deslumbrante região" | Diga o que a coisa é |
-| 17 | **Autoridade emprestada** | "Especialistas acreditam...", "citada na Folha, no Estadão, na BBC e no FT" | Nomeie uma fonte real e o que ela disse, ou remova a afirmação ou a lista |
+| 17 | **Autoridade emprestada** | "Especialistas acreditam...", "a literatura aponta...", "citada na Folha, no Estadão, na BBC e no FT" | Nomeie uma fonte real e o que ela disse, ou remova a afirmação ou a lista |
 | 18 | **Evitar é, são e tem** | "serve como... conta com... possui" | "é... tem" |
 
 ### D. Formatação por regra

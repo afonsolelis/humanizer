@@ -5,10 +5,11 @@ description: |
   Use ao editar ou revisar prosa em busca de sinais de IA: contrastes "não é X, é Y", frases de
   fechamento, aberturas encenadas, tríades forçadas, travessões em excesso, "vale ressaltar",
   afirmações infladas, linguagem de venda, vocabulário típico de IA, rótulos em negrito ou
-  enchimento. Baseado em "Signs of AI writing" da Wikipédia.
+  enchimento. Em texto acadêmico e técnico, calibra verbos à evidência, dá endereço às
+  afirmações e troca adjetivos pelo fato. Baseado em "Signs of AI writing" da Wikipédia.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Humanizador: remover padrões de escrita de IA em português
@@ -47,11 +48,24 @@ Sem amostra, tire a voz do tipo de texto. Posts de blog, ensaios, opiniões e es
 
 Escreva na variante do português que o texto original usa. Se o original é em português do Brasil, não introduza formas europeias, e vice-versa. Se o texto alterna entre "você" e "tu", ou entre registro formal e informal, escolha o registro dominante e mantenha-o.
 
+### Texto acadêmico e técnico
+
+Artigo, dissertação, relatório técnico e documentação têm registro próprio, e parte do que seria sinal em um post é a voz nativa desse gênero. Ao reescrever esse tipo de texto:
+
+- **Calibre o verbo à evidência.** Medida direta: "o teste mostrou". Padrão descritivo: "os resultados indicam". Caso único: "o caso fornece evidência preliminar". Explicação plausível: "uma interpretação possível é". Sem comparador: "não é possível atribuir a diferença a". "Garante", "comprova", "demonstra" e "assegura" só quando o desenho do estudo sustenta; "evidencia" e "demonstra" pendurados em um fato simples são o padrão §15.
+- **Dê endereço à afirmação.** Uma afirmação anda com a seção, o quadro, a figura, a medida ou a fonte que a sustenta: "Segundo Fulano (2019)", "o Quadro 3 mostra", "a seção 4.2 define". "Estudos mostram" e "a literatura aponta" sem nome são o padrão §17. Uma lista de referências sem dizer o que cada uma contribui também é.
+- **Troque o adjetivo pelo fato.** "A documentação é sólida" vira "a documentação liga cada caso de teste à regra e à user story, nos dois sentidos". Não troque por sinônimo; troque pelo dado que gerou o adjetivo. Se o dado não está no texto, mantenha a frase mais simples ou pergunte.
+- **Separe observação, interpretação, hipótese e conclusão.** Não transforme associação em causalidade, nem ausência de ocorrência em prova de inexistência. Mantenha a limitação junto do resultado que ela afeta. Uma reescrita que deixa a conclusão mais forte do que a evidência é erro, mesmo que soe melhor.
+- **Preserve a passagem entre evidência, comparação e mecanismo.** Texto científico bom apresenta o resultado, compara com uma referência ou configuração alternativa e explica a diferença por um mecanismo. Você pode reorganizar parágrafos, mas não pode cortar um desses três elos para o texto ficar mais enxuto.
+- **Mantenha a retomada que sustenta o argumento.** Repetir um conceito central em seções diferentes é hábito humano quando cada retomada acrescenta uma função: definição no referencial, uso no método, medição nos resultados. Não aplique §7 a isso.
+- **A forma impessoal com "se" é voz legítima aqui.** "Percebe-se no Quadro 3 que", "escolheu-se o modelo X", "verifica-se uma queda" têm o artefato ou o fenômeno como sujeito e são a norma do gênero em português. Veja em §11 o que distingue essa forma da que esconde o agente.
+- **Não reescreva citações literais.** Uma citação entre aspas reproduz o que a fonte escreveu, com os vícios dela. Reescrevê-la é falsificação.
+
 ### O que devolver
 
 **Texto colado (padrão).** Devolva o rascunho, uma lista curta dos padrões que restaram e a reescrita final.
 
-**Modo arquivo.** Quando o usuário indica um arquivo, faça o processo completo, mas grave no arquivo só o texto final. Mude apenas a prosa. Mantenha blocos de código, código inline, comandos, caminhos, metadados YAML, dados e destinos de links sem alteração. Depois dê ao usuário um resumo curto.
+**Modo arquivo.** Quando o usuário indica um arquivo, faça o processo completo, mas grave no arquivo só o texto final. Mude apenas a prosa. Mantenha blocos de código, código inline, comandos, caminhos, metadados YAML, dados e destinos de links sem alteração. Em LaTeX, mantenha comandos, chaves bibliográficas, `\label`, `\ref`, equações e ambientes; mude só a prosa entre eles. Mantenha a vírgula decimal (9,4) onde o texto a usa. Depois dê ao usuário um resumo curto. Para uma checagem mecânica antes e depois, rode `python3 scripts/contar-sinais.py <arquivo>`; ele conta os sinais que mais sobrevivem a uma reescrita.
 
 **Modo embutido.** Quando outra tarefa usa esta skill para um pull request, mensagem de commit ou documento, devolva só o texto final.
 
@@ -61,7 +75,7 @@ Estes são os sinais mais fortes e frequentes na prosa dos modelos atuais. Aja c
 
 ### 1. Não é X, é Y
 
-**Fique atento a:** não é X, é Y; não é apenas, não é só, não é somente ou não se trata apenas de X, mas de Y; não só X, mas também Y; mais do que X, Y; a forma invertida "X, e não Y"; o mesmo contraste dividido em frases ("Isso não significa X. Significa Y."); um rabo negativo cortado ("..., sem adivinhação", "..., sem surpresas"). A fórmula aparece em qualquer língua; trate a construção equivalente do mesmo jeito.
+**Fique atento a:** não é X, é Y; não é apenas, não é só, não é somente ou não se trata apenas de X, mas de Y; não só X, mas também Y; mais do que X, Y; não se limita a X; X vai além de Y; a forma invertida "X, e não Y"; o mesmo contraste dividido em frases ("Isso não significa X. Significa Y."); um rabo negativo cortado ("..., sem adivinhação", "..., sem surpresas"). A fórmula aparece em qualquer língua; trate a construção equivalente do mesmo jeito.
 **Problema:** A metade negativa nomeia algo que ninguém afirmou, para a metade positiva parecer maior. Acrescenta peso sem acrescentar afirmação. Diga o ponto diretamente. Mantenha um contraste só quando a metade negativa corrige uma crença que o leitor de fato tem, ou quando as duas metades carregam informação.
 **Antes:**
 > Não se trata apenas da batida por baixo do vocal; ela faz parte da agressividade e da atmosfera. Não é só uma música, é um manifesto.
@@ -78,8 +92,8 @@ Estes são os sinais mais fortes e frequentes na prosa dos modelos atuais. Aja c
 
 ### 2. Frases de fechamento e fragmentos dramáticos
 
-**Fique atento a:** um parágrafo de uma frase que repete o parágrafo anterior; "É isso que importa."; "Essa é a verdadeira vitória."; "Essa distinção faz diferença."; "Leia de novo."; "Pense nisso."; "Simples assim."; "Ponto."; a mesma frase de fechamento depois de várias seções; uma frase depois de um exemplo, cena ou número que nomeia o que ele mostrou ("Isso mostra a importância de...", "A mensagem era clara:", "Foi uma lição de paciência."); uma fileira de fragmentos ("Sem nostalgia. Sem saudade do gosto humano."); uma palavra em CAIXA ALTA ou com ponto entre as palavras (todo. santo. dia.).
-**Problema:** A linha pede que o leitor pare sobre uma afirmação em vez de acrescentar a ela. Uma frase curta pode carregar ênfase quando carrega um fato novo. Corte o fechamento que repete, inclusive o que explica um exemplo que o leitor acabou de ver. Mantenha quando acrescenta um fato ou consequência que o exemplo não mostra. Junte uma fileira de fragmentos em uma frase com uma afirmação específica.
+**Fique atento a:** um parágrafo de uma frase que repete o parágrafo anterior; "É isso que importa."; "Essa é a verdadeira vitória."; "Essa distinção faz diferença."; "Leia de novo."; "Pense nisso."; "Simples assim."; "Ponto."; a mesma frase de fechamento depois de várias seções; uma frase depois de um exemplo, cena ou número que nomeia o que ele mostrou ("Isso mostra a importância de...", "A mensagem era clara:", "Foi uma lição de paciência."); uma fileira de fragmentos ("Sem nostalgia. Sem saudade do gosto humano."); uma palavra em CAIXA ALTA ou com ponto entre as palavras (todo. santo. dia.); no registro formal, a frase que promove a observação anterior a princípio: "é o que distingue X de Y", "é o que sustenta", "é o que garante", "é o cuidado que", "é o teste prático de", "é a construção correta", "e o que diferencia é".
+**Problema:** A linha pede que o leitor pare sobre uma afirmação em vez de acrescentar a ela. Em texto acadêmico e em avaliação, o parágrafo descreve algo concreto e termina com uma generalização que o eleva a regra; o leitor já leu o fato, e a moral da história é peso morto. Quando a generalização é mesmo o ponto, ela vira a frase principal e o fato vira o apoio, não os dois em sequência. Uma frase curta pode carregar ênfase quando carrega um fato novo. Corte o fechamento que repete, inclusive o que explica um exemplo que o leitor acabou de ver. Mantenha quando acrescenta um fato ou consequência que o exemplo não mostra. Junte uma fileira de fragmentos em uma frase com uma afirmação específica.
 **Antes:**
 > Então chegou o AlphaEvolve. Ele não tinha preferência por simetria. Sem viés estético. Sem nostalgia do gosto humano. As regras antigas tinham acabado.
 **Depois:**
@@ -96,6 +110,10 @@ Estes são os sinais mais fortes e frequentes na prosa dos modelos atuais. Aja c
 > O cache corta trabalho repetido.
 >
 > As novas tentativas escondem quedas breves.
+**Antes (observação promovida a princípio):**
+> Em CP-02 o caso usa três datas de consulta, uma delas fora da vigência, e exige lista vazia nessa terceira. Testar a borda e a ausência, e não só o caminho feliz, é o que distingue um caso de teste de uma conferência.
+**Depois:**
+> Em CP-02 o caso usa três datas de consulta, uma delas fora da vigência, e exige lista vazia nessa terceira. O caso testa a borda, não só o caminho feliz.
 
 ### 3. Frases que soam profundas
 
@@ -112,7 +130,7 @@ Estes são os sinais mais fortes e frequentes na prosa dos modelos atuais. Aja c
 
 ### 4. Preparação encenada antes do ponto
 
-**Fique atento a:** vamos mergulhar, vamos explorar, vamos destrinchar, vamos entender, aqui está o que você precisa saber, agora vamos ver, sem mais delongas, um aviso, uma observação rápida, Sinceramente?, Olha,, A questão é a seguinte, O negócio é o seguinte, Vamos ser honestos, Papo reto, Vou ser direto, Spoiler:, e versões casuais como "uma coisa que me pegou, então presta atenção". Inclui os anúncios de importância do registro formal: vale ressaltar que, vale destacar que, vale lembrar que, é importante ressaltar que, é importante destacar que, cabe destacar que, cabe salientar que, cumpre observar que, é válido mencionar que, não podemos deixar de mencionar.
+**Fique atento a:** vamos mergulhar, vamos explorar, vamos destrinchar, vamos entender, aqui está o que você precisa saber, agora vamos ver, sem mais delongas, um aviso, uma observação rápida, Sinceramente?, Olha,, A questão é a seguinte, O negócio é o seguinte, Vamos ser honestos, Papo reto, Vou ser direto, Spoiler:, e versões casuais como "uma coisa que me pegou, então presta atenção". Inclui os anúncios de importância do registro formal: vale ressaltar que, vale destacar que, vale lembrar que, é importante ressaltar que, é importante destacar que, cabe destacar que, cabe salientar que, cumpre observar que, é válido mencionar que, não podemos deixar de mencionar, chama atenção que, um trecho merece destaque porque, o que salta aos olhos, aqui vale uma observação.
 **Problema:** O autor anuncia o ponto, ou encena um momento de franqueza, em vez de fazer o ponto. "Vale ressaltar que X" diz ao leitor que X importa sem dizer por quê; a frase perde nada quando vira "X". Remova a preparação, não só o tom dela. "Sinceramente" ou "olha" dentro de uma frase casual é comum; o sinal é a abertura isolada antes de uma afirmação corriqueira.
 **Antes:**
 > Vamos mergulhar em como funciona o cache no Next.js. Aqui está o que você precisa saber.
@@ -158,7 +176,7 @@ Formas e pontuação aplicadas em todo lugar, peça o sentido ou não.
 
 ### 7. Aberturas de frase repetidas
 
-**Problema:** Várias frases seguidas começam com o mesmo sujeito, muitas vezes *ela* ou *ele*, porque a repetição é tratada por regra e não de ouvido. Junte as frases, mude o sujeito ou comece pela ação. Não proíba a palavra repetida; uma frase que sobrar ainda pode começar com "Ela". Autores também repetem uma abertura de propósito pelo ritmo, como em "Vim. Vi. Venci."
+**Problema:** Várias frases seguidas começam com o mesmo sujeito, muitas vezes *ela* ou *ele*, ou têm o mesmo tamanho e a mesma estrutura, porque a repetição é tratada por regra e não de ouvido. Junte as frases, mude o sujeito ou comece pela ação. Escrita humana alterna o período longo encadeado por vírgula com a frase curta de veredito; copie essa alternância. Não proíba a palavra repetida; uma frase que sobrar ainda pode começar com "Ela". Autores também repetem uma abertura de propósito pelo ritmo, como em "Vim. Vi. Venci."
 **Antes:**
 > Ela reparou na porta. Ela reparou na tranca. Ela guardou as duas coisas na memória.
 **Depois:**
@@ -193,12 +211,16 @@ Formas e pontuação aplicadas em todo lugar, peça o sentido ou não.
 
 ### 11. Voz passiva, sujeito indeterminado e sujeito oculto
 
-**Fique atento a:** faz-se necessário, torna-se imprescindível, deve-se considerar, pode-se observar, é possível observar, verifica-se que, constata-se que, entende-se que, recomenda-se que, foi realizado, foram implementadas, é necessário que se, cabe ao usuário
-**Problema:** O texto esconde quem age ou apaga o sujeito. Em português, o modelo recorre às formas com "se" e às construções "é possível + verbo" do registro acadêmico e burocrático, e o resultado é um texto em que ninguém faz nada. Use voz ativa quando ela deixa o agente e a ação mais claros. *Fraco sozinho.*
+**Fique atento a:** faz-se necessário, torna-se imprescindível, deve-se considerar, é possível observar, é necessário que se, cabe ao usuário, foi realizado, foram implementadas; e a forma com "se" sem sujeito concreto: "pode-se observar uma melhora" sem dizer onde, "entende-se que", "recomenda-se que"
+**Problema:** O texto esconde quem age ou apaga o sujeito, e o resultado é um texto em que ninguém faz nada. Em português há duas formas com "se" que parecem iguais e não são. "Percebe-se no Quadro 3 uma queda de 14%" tem o artefato como sujeito e um endereço; é a voz nativa do texto acadêmico e técnico e não é sinal. "Pode-se observar uma melhora" não diz onde nem quanto; é enchimento com verbo. "Faz-se necessário" e "torna-se imprescindível" são o mesmo enchimento com adjetivo. Mantenha a primeira forma. Na segunda, nomeie o agente, o lugar ou a medida, ou use voz ativa. Em texto instrucional, "você" ou o imperativo são comuns; em texto acadêmico e em avaliação, o sujeito é o artefato, a seção ou o grupo. *Fraco sozinho.*
 **Antes:**
 > Faz-se necessário configurar o arquivo. Os resultados são preservados automaticamente. Pode-se observar uma melhora no desempenho.
 **Depois:**
 > Você precisa configurar o arquivo. O sistema preserva os resultados automaticamente. O desempenho melhorou.
+**Antes (forma legítima, deixar em paz):**
+> Escolheu-se o modelo de 12 bilhões de parâmetros porque cabe na memória da placa. Verifica-se no Quadro 5 que o tempo médio caiu de 41 para 28 segundos.
+**Depois:**
+> (Não mude. O sujeito é a escolha e o quadro, e cada afirmação tem endereço.)
 
 ## C. Inflação e autoridade emprestada
 
@@ -206,12 +228,16 @@ O fato por baixo em geral está certo. Mantenha-o e tire a roupagem.
 
 ### 12. Palavras típicas de IA
 
-**Fique atento a:** robusto (figurado; mantenha o uso técnico), alavancar, potencializar, impulsionar, otimizar (figurado), aprimorar, fomentar, viabilizar, promover (figurado), consolidar, nesse sentido, nessa perspectiva, nesse contexto, no cenário atual, no contexto atual, na era digital, em um mundo cada vez mais, cada vez mais, nos dias de hoje, desempenha um papel fundamental/crucial/essencial, crucial, fundamental, essencial, imprescindível, primordial, abrangente, holístico, sinergia, panorama, cenário, jornada, ecossistema (figurado), paradigma, intrincado, meticuloso, mergulhar (em um tema), desvendar, navegar (pelos desafios), tapeçaria, testemunho (no sentido de prova), ressoar, inovador, transformador, disruptivo, revolucionário, de ponta, sem precedentes, em constante evolução, dinâmico, multifacetado, ampla gama, inúmeros, diversos, vasto, significativo, relevante, impactante, de forma geral, por meio de, bem como, ademais, outrossim, dessa forma, desse modo, diante disso, em suma, em síntese, é inegável que, não há dúvidas de que, é notório que, é sabido que, sabe-se que, no que tange a, no que diz respeito a, no tocante a
-**Problema:** Os modelos usam estas palavras muito mais do que as pessoas, sobretudo em grupo. As listas de §13 a §18 trazem expressões que são sinal pelo modo como são usadas; esta lista traz palavras que são sinal onde quer que apareçam. Uma palavra formal fora destas listas não é sinal por si só. Troque pelo termo simples: forte ou confiável no lugar de robusto, usar no lugar de alavancar, melhorar no lugar de aprimorar ou potencializar, e corte os conectivos de encadeamento que não ligam nada.
+**Fique atento a:** robusto (figurado; mantenha o uso técnico), sólido, consistente, coerente (como elogio sem dado), alinhado, maduro, bem estruturado, notório, exemplar, nítido, consolidado, alavancar, potencializar, impulsionar, otimizar (figurado), aprimorar, fomentar, viabilizar, promover (figurado), consolidar, nesse sentido, nessa perspectiva, nesse contexto, no cenário atual, no contexto atual, na era digital, em um mundo cada vez mais, cada vez mais, nos dias de hoje, desempenha um papel fundamental/crucial/essencial, crucial, fundamental, essencial, imprescindível, primordial, abrangente, holístico, sinergia, panorama, cenário, jornada, ecossistema (figurado), paradigma, intrincado, meticuloso, mergulhar (em um tema), desvendar, navegar (pelos desafios), tapeçaria, testemunho (no sentido de prova), ressoar, inovador, transformador, disruptivo, revolucionário, de ponta, sem precedentes, em constante evolução, dinâmico, multifacetado, ampla gama, inúmeros, diversos, vasto, significativo, relevante, impactante, de forma geral, por meio de, bem como, ademais, outrossim, dessa forma, desse modo, diante disso, em suma, em síntese, é inegável que, não há dúvidas de que, é notório que, é sabido que, sabe-se que, no que tange a, no que diz respeito a, no tocante a
+**Problema:** Os modelos usam estas palavras muito mais do que as pessoas, sobretudo em grupo. As listas de §13 a §18 trazem expressões que são sinal pelo modo como são usadas; esta lista traz palavras que são sinal onde quer que apareçam. Uma palavra formal fora destas listas não é sinal por si só. Troque pelo termo simples: forte ou confiável no lugar de robusto, usar no lugar de alavancar, melhorar no lugar de aprimorar ou potencializar. Quando a palavra é um adjetivo de avaliação (sólido, consistente, coerente, maduro), não troque por sinônimo; troque pelo fato que gerou o adjetivo, se ele está no texto. Corte os conectivos de encadeamento que não ligam nada; os que explicam uma relação ("já que", "porém", "visto que", "ou seja", "mesmo que", "devido a") ficam.
 **Antes:**
 > Ademais, uma característica marcante da culinária somali é a incorporação de carne de camelo. Nesse sentido, a ampla adoção da massa no panorama culinário local é um testemunho duradouro da influência colonial italiana, evidenciando como esses pratos foram integrados à dieta tradicional.
 **Depois:**
 > A culinária somali também inclui carne de camelo, considerada uma iguaria. Pratos de massa, introduzidos na colonização italiana, continuam comuns, sobretudo no sul.
+**Antes (adjetivo no lugar do fato):**
+> A entrega tem evidência sólida e rastreabilidade consistente entre histórias, regras e casos, demonstrando maturidade no cenário de testes.
+**Depois:**
+> A entrega liga cada caso de teste à regra e à história de usuário, nos dois sentidos, e o checklist do Quadro 7 repete o vínculo.
 
 ### 13. Importância inflada
 
@@ -259,7 +285,7 @@ O fato por baixo em geral está certo. Mantenha-o e tire a roupagem.
 
 ### 17. Autoridade emprestada
 
-**Fique atento a:** especialistas afirmam, especialistas acreditam, estudos mostram, pesquisas indicam, observadores apontam, relatórios do setor, alguns críticos, diversas publicações, é consenso que, amplamente reconhecido; citado, destacado ou perfilado em [uma lista de veículos], publicações especializadas, cobertura independente; presença ativa nas redes sociais, mais de N seguidores
+**Fique atento a:** especialistas afirmam, especialistas acreditam, estudos mostram, pesquisas indicam, a literatura aponta, autores defendem, diversos autores, observadores apontam, relatórios do setor, alguns críticos, diversas publicações, é consenso que, amplamente reconhecido; citado, destacado ou perfilado em [uma lista de veículos], publicações especializadas, cobertura independente; presença ativa nas redes sociais, mais de N seguidores
 **Problema:** Um nome ou uma autoridade anônima substitui o que foi dito. Especialistas sem nome escoram uma afirmação; uma lista de veículos de prestígio escora uma pessoa. Quando o texto-fonte nomeia a fonte real e o que ela disse, use isso. Senão, corte a afirmação sem apoio ou a lista. A falta de citação, sozinha, não é sinal; a maior parte da escrita não tem fonte.
 **Antes (autoridade anônima):**
 > Por suas características únicas, o rio Haolai é de interesse para pesquisadores e conservacionistas. Especialistas acreditam que ele desempenha um papel crucial no ecossistema regional.
@@ -390,7 +416,7 @@ Um modelo escreve para um leitor que não compartilha contexto nenhum, porque is
 
 ## Quando não agir
 
-Cada padrão descreve uma escolha padrão, e uma pessoa pode fazer qualquer uma delas de propósito. Deixe em paz uma expressão vigiada dentro de uma citação, um título, um nome próprio ou um trecho que discute a expressão em vez de usá-la. Saudações e despedidas em carta ou comentário existem desde antes dos chatbots. Texto escrito antes de 30 de novembro de 2022 não é texto de IA. Pessoas que julgam no sentimento acertam pouco mais do que o acaso, e a escrita humana segue absorvendo hábitos de IA, então vários sinais juntos são a salvaguarda.
+Cada padrão descreve uma escolha padrão, e uma pessoa pode fazer qualquer uma delas de propósito. Deixe em paz uma expressão vigiada dentro de uma citação, um título, um nome próprio ou um trecho que discute a expressão em vez de usá-la. Saudações e despedidas em carta ou comentário existem desde antes dos chatbots. Texto escrito antes de 30 de novembro de 2022 não é texto de IA. Pessoas que julgam no sentimento acertam pouco mais do que o acaso, e a escrita humana segue absorvendo hábitos de IA, então vários sinais juntos são a salvaguarda. Não atribua autoria humana ou artificial a um texto com base em estilo ou data; o trabalho é editar, não detectar.
 
 Em português, o registro formal de redação, relatório e trabalho acadêmico já usava "nesse sentido", "vale ressaltar" e "faz-se necessário" muito antes dos modelos. Em um texto desse gênero, um ou dois desses termos são hábito humano; o sinal é a densidade, ou a presença deles em um gênero que não os pede, como um post pessoal ou uma mensagem de equipe.
 
@@ -401,7 +427,10 @@ Mantenha os detalhes que carregam a voz do autor, a menos que prejudiquem o sent
 - Referências datadas: gírias, memes e piadas internas que apontam para um ano e uma subcultura específicos.
 - Uma escolha em primeira pessoa que o autor sabe explicar.
 - Um aparte, parêntese ou autocorreção genuínos: "(Fico querendo escrever 'quase' aqui, mas foi certeza mesmo.)"
+- O veredito seco, quando o veredito é esse: "Os corpos de prova com 20% de borracha não tiveram o desempenho esperado." Sem preparar o terreno antes nem consolar depois.
+- A concessão na mesma frase do elogio: "mesmo que não atinja a mesma resistência do concreto piloto, há um ganho de quase 14%".
+- A dúvida honesta onde a dúvida é real: "possivelmente porque", "deve ter se separado". Hesitar onde não sabe e afirmar direto onde sabe é traço humano, não qualificador empilhado.
 
 ## Origem
 
-Os padrões vêm de ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), da Wikipédia em inglês, mantido pelo WikiProject AI Cleanup, e de revisões de texto gerado por IA na Wikipédia e em outros lugares. Esta versão é uma adaptação para o português da skill [Humanizer](https://github.com/blader/humanizer), de blader. As listas de vocabulário e os exemplos foram reescritos para o português, e os padrões 10 e 11 foram adaptados aos hábitos dos modelos nesta língua.
+Os padrões vêm de ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), da Wikipédia em inglês, mantido pelo WikiProject AI Cleanup, e de revisões de texto gerado por IA na Wikipédia e em outros lugares. Esta versão é uma adaptação para o português da skill [Humanizer](https://github.com/blader/humanizer), de blader. As listas de vocabulário e os exemplos foram reescritos para o português, e os padrões 10 e 11 foram adaptados aos hábitos dos modelos nesta língua. A seção sobre texto acadêmico e técnico, os aforismos de fechamento do registro formal e a regra de trocar o adjetivo pelo fato vêm de uma skill de humanização de prosa acadêmica usada em uma tese de doutorado em português.

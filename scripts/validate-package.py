@@ -11,8 +11,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SKILL_NAME = "humanizador"
 # Cada palavra do SKILL.md é lida a cada uso. O português corre cerca de 20%
-# mais longo que o inglês, então o teto é maior que o da skill original.
-MAX_SKILL_WORDS = 7000
+# mais longo que o inglês, e a seção de texto acadêmico e técnico ocupa o
+# resto, então o teto é maior que o da skill original.
+MAX_SKILL_WORDS = 8000
 
 
 def read_package_file(path: Path) -> str:

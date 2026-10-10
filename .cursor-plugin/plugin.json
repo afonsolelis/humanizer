@@ -1,7 +1,7 @@
 {
   "name": "humanizador",
   "description": "Reescreve texto em português com cara de IA para que soe como o autor, sem mudar o que ele diz.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "afonsolelis"
   },
