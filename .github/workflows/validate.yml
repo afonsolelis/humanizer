@@ -1,4 +1,4 @@
-name: Check package
+name: Verificar pacote
 
 on:
   pull_request:
@@ -19,11 +19,11 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12"
-      - name: Check package files
+      - name: Verificar arquivos do pacote
         run: python3 scripts/validate-package.py
-      - name: Check skill discovery
+      - name: Verificar descoberta da skill
         run: npx --yes skills@1.5.20 add . --list
-      - name: Check Claude marketplace
+      - name: Verificar marketplace do Claude
         run: |
           npm install --global @anthropic-ai/claude-code@2.1.237
           claude plugin validate .

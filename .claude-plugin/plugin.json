@@ -1,15 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
-  "name": "humanizer",
-  "description": "Rewrite AI-sounding text so it reads like the writer without changing what it says.",
-  "version": "3.1.0",
+  "name": "humanizador",
+  "description": "Reescreve texto em português com cara de IA para que soe como o autor, sem mudar o que ele diz.",
+  "version": "1.0.0",
   "author": {
-    "name": "blader",
-    "url": "https://github.com/blader"
+    "name": "afonsolelis",
+    "url": "https://github.com/afonsolelis"
   },
-  "homepage": "https://github.com/blader/humanizer",
-  "repository": "https://github.com/blader/humanizer",
+  "homepage": "https://github.com/afonsolelis/humanizer",
+  "repository": "https://github.com/afonsolelis/humanizer",
   "license": "MIT",
-  "keywords": ["writing", "editing", "humanize", "prose", "style"],
+  "keywords": ["escrita", "edição", "humanizar", "prosa", "estilo", "português", "writing", "humanize"],
   "skills": ["./"]
 }

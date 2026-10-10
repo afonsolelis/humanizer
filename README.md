@@ -1,206 +1,207 @@
-# Humanizer
+# Humanizador
 
-[![GitHub stars](https://img.shields.io/github/stars/blader/humanizer?style=flat)](https://github.com/blader/humanizer/stargazers) [![skills.sh installs](https://skills.sh/b/blader/humanizer)](https://skills.sh/blader/humanizer)
+[![GitHub stars](https://img.shields.io/github/stars/afonsolelis/humanizer?style=flat)](https://github.com/afonsolelis/humanizer/stargazers)
 
-Humanizer makes AI-written text sound like a person wrote it, without changing what it says. It is built on Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), the guide Wikipedia editors use to catch AI-generated text, and it works in Claude Code, Codex, and any other agent that supports skills.
+O Humanizador faz texto em português escrito por IA soar como texto escrito por uma pessoa, sem mudar o que ele diz. É uma adaptação para o português da skill [Humanizer](https://github.com/blader/humanizer), de blader, que por sua vez se baseia em [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), o guia que os editores da Wikipédia usam para identificar texto gerado por IA. Funciona no Claude Code, no Codex e em qualquer outro agente que suporte skills.
 
-**Before:**
-> I'm thrilled to announce that shared drafts are finally here! 🚀 For months, our own team was drowning in files named final_v7.docx — and we knew there had to be a better way. Now two people can edit the same doc at once, with every change appearing live for both of them. It's not just a feature; it's a whole new way to collaborate. Comments stay anchored to the exact sentence they reference, even as the text around them evolves. And the best part? It's available today on every plan, completely free. Let that sink in.
+A versão original traz listas de palavras e exemplos em inglês. A lógica estrutural vale para o português, mas o vocabulário típico de IA nesta língua ("robusto", "alavancar", "nesse sentido", "vale ressaltar", "faz-se necessário") não aparecia nela. Esta versão reescreve as 26 listas e todos os exemplos para o português e adapta dois padrões aos hábitos dos modelos quando escrevem nesta língua.
 
-**After:**
-> Shared drafts are out today. For months our own team passed around files named final_v7.docx, so we built a way for two people to edit the same doc at once, with each person's changes showing up live for the other. Comments stay pinned to the sentence they're about, even when the text around them changes. It's free on every plan.
+**Antes:**
+> É com grande entusiasmo que anunciamos que os rascunhos compartilhados finalmente chegaram! 🚀 Durante meses, nossa própria equipe se afogava em arquivos chamados final_v7.docx — e sabíamos que precisava haver uma forma melhor. Agora duas pessoas podem editar o mesmo documento ao mesmo tempo, com cada alteração aparecendo ao vivo para ambas. Não é apenas uma funcionalidade; é uma nova forma de colaborar. Vale ressaltar que os comentários permanecem ancorados à frase exata a que se referem, mesmo enquanto o texto ao redor evolui. E o melhor? Está disponível hoje em todos os planos, de forma totalmente gratuita. Pense nisso.
 
-In a blind test, judges preferred Humanizer's rewrite over the original AI text 16 times out of 16 ([#229](https://github.com/blader/humanizer/issues/229)).
+**Depois:**
+> Os rascunhos compartilhados saíram hoje. Durante meses a nossa própria equipe passou de mão em mão arquivos chamados final_v7.docx, então criamos um jeito de duas pessoas editarem o mesmo documento ao mesmo tempo, com a alteração de uma aparecendo ao vivo para a outra. Os comentários ficam presos à frase a que se referem, mesmo quando o texto em volta muda. É gratuito em todos os planos.
 
-Humanizer edits for human readers. Getting past AI detectors is not a goal, and detectors still flag most of its output.
+O Humanizador edita para leitores humanos. Passar por detectores de IA não é um objetivo, e os detectores ainda marcam a maior parte do que ele produz.
 
-## The five strongest tells
+## Os cinco sinais mais fortes
 
-These are the most common signs of AI writing, and Humanizer rewrites any of them on sight:
+Estes são os sinais mais comuns de escrita de IA, e o Humanizador reescreve qualquer um deles à primeira vista:
 
-1. **Not X but Y:** "It's not just a feature, it's a shift."
-2. **One-line closers:** "Let that sink in."
-3. **Sayings that sound deep:** "At its core, what really matters is..."
-4. **A staged run-up:** "Here's the thing." "Honestly?"
-5. **Arguing with no one:** "I'm not saying X, but..."
+1. **Não é X, é Y:** "Não é apenas uma funcionalidade, é uma mudança."
+2. **Frases de fechamento:** "Pense nisso."
+3. **Frases que soam profundas:** "Em sua essência, o que realmente importa é..."
+4. **Preparação encenada:** "Vamos mergulhar." "Vale ressaltar que..." "Sinceramente?"
+5. **Discutir com ninguém:** "Não estou dizendo que X, mas..."
 
-Humanizer checks for [26 patterns](#the-26-patterns) in all.
+O Humanizador verifica [26 padrões](#os-26-padrões) ao todo.
 
-## Installation
+## Instalação
 
-Once installed, the skill answers to `/humanizer`.
+Depois de instalada, a skill responde a `/humanizador`.
 
 ### Claude Code
 
 ```text
-/plugin marketplace add blader/humanizer
-/plugin install humanizer@humanizer
+/plugin marketplace add afonsolelis/humanizer
+/plugin install humanizador@humanizador
 ```
 
-The plugin answers to `/humanizer:humanizer`. It needs Claude Code 2.1.142 or newer; on older versions, use `npx skills add blader/humanizer --global --agent claude-code`.
+O plugin responde a `/humanizador:humanizador`. Precisa do Claude Code 2.1.142 ou mais novo; em versões anteriores, use `npx skills add afonsolelis/humanizer --global --agent claude-code`.
 
 ### Codex
 
 ```bash
-npx skills add blader/humanizer --global --agent codex
+npx skills add afonsolelis/humanizer --global --agent codex
 ```
 
-### Claude.ai and Claude Desktop
+### Claude.ai e Claude Desktop
 
-Download this repository as a ZIP (**Code → Download ZIP**) and upload it as a skill in Settings.
+Baixe este repositório como ZIP (**Code → Download ZIP**) e envie-o como skill em Configurações.
 
-### Other agents
+### Outros agentes
 
 ```bash
-npx skills add blader/humanizer --global --agent '*'
+npx skills add afonsolelis/humanizer --global --agent '*'
 ```
 
-This installs Humanizer for every agent the Skills CLI supports, including Gemini CLI, GitHub Copilot, and Windsurf. Leave off `--global` in any command above to install it only in the current project. For an agent the Skills CLI does not know, copy `SKILL.md` into its skill folder.
+Isso instala o Humanizador para todo agente que a Skills CLI suporta, incluindo Gemini CLI, GitHub Copilot e Windsurf. Tire o `--global` de qualquer comando acima para instalar só no projeto atual. Para um agente que a Skills CLI não conhece, copie o `SKILL.md` para a pasta de skills dele.
 
-## Usage
+## Uso
 
-Call the skill directly:
-
-```
-/humanizer
-
-[paste your text here]
-```
-
-Or ask in plain language:
+Chame a skill diretamente:
 
 ```
-Please humanize this text: [your text]
+/humanizador
+
+[cole seu texto aqui]
 ```
 
-To rewrite a file, give Humanizer its path:
+Ou peça em linguagem comum:
 
 ```
-Humanize the prose in docs/launch-post.md
+Humanize este texto: [seu texto]
 ```
 
-### Match your voice
-
-If you want the rewrite to sound more like you, include a sample:
+Para reescrever um arquivo, passe o caminho dele:
 
 ```
-/humanizer
-
-Here's a sample of my writing for voice matching:
-[paste 2-3 paragraphs of your own writing]
-
-Now humanize this text:
-[paste AI text to humanize]
+Humanize a prosa em docs/post-de-lancamento.md
 ```
 
-Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate quirks, including dashes if you use them.
+### Combine com a sua voz
 
-## How it works
+Se quiser que a reescrita soe mais como você, inclua uma amostra:
 
-A language model writes whatever is most likely to come next, so by default it makes the choice that fits the widest range of readers and subjects. A person chooses for one reader and one subject. Every tell Humanizer looks for is a form of that default choice: a sentence that signals importance instead of adding a fact, rhythm or formatting applied by rule, an ordinary fact dressed as a pivotal one, text left over from the chat, or a reply that re-explains what the reader already knows.
+```
+/humanizador
+
+Aqui vai uma amostra da minha escrita para você imitar a voz:
+[cole 2 ou 3 parágrafos seus]
+
+Agora humanize este texto:
+[cole o texto de IA]
+```
+
+O Humanizador segue o ritmo, a escolha de palavras, a pontuação e as manias deliberadas da amostra, inclusive travessões, se você os usa. Ele também mantém a variante do português do texto original, brasileira ou europeia.
+
+## Como funciona
+
+Um modelo de linguagem escreve o que tem mais chance de vir a seguir, então por padrão faz a escolha que serve ao maior número de leitores e assuntos. Uma pessoa escolhe para um leitor e um assunto. Cada sinal que o Humanizador procura é uma forma dessa escolha padrão: uma frase que sinaliza importância em vez de acrescentar um fato, ritmo ou formatação aplicados por regra, um fato comum vestido de decisivo, uma sobra do chat ou uma resposta que reexplica o que o leitor já sabe. Em português, soma-se o registro de redação escolar e de relatório corporativo que os modelos adotam por padrão, com seus conectivos de encadeamento, anúncios de importância e verbos de consultoria.
 
 > "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."
-> Wikipedia, ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing)
+> Wikipédia, ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing)
 
-Humanizer marks every tell it finds, strongest first. It drafts a rewrite without treating the original structure as fixed, checks the draft against the patterns and the original claims, and then writes the final version. It does not make things up. A name, number, date, quote, citation, or other factual detail must come from the source or the writer, and if a sentence needs a detail that is missing, Humanizer asks instead of inventing one.
+O Humanizador marca cada sinal que encontra, do mais forte ao mais fraco. Rascunha uma reescrita sem tratar a estrutura original como fixa, confere o rascunho contra os padrões e contra as afirmações originais, e então escreve a versão final. Ele não inventa nada. Nome, número, data, citação, referência ou qualquer outro detalhe factual precisa vir da fonte ou do autor, e se uma frase precisa de um detalhe que falta, o Humanizador pergunta em vez de inventar.
 
-When you paste text, Humanizer shows its work: the first rewrite, a short critique of anything that still sounds artificial, and the final version. Point it at a file and it changes only the prose, leaving code, data, frontmatter, and link targets alone. Personal writing keeps the writer's opinions and quirks. Technical and reference prose stays neutral and plain.
+Quando você cola um texto, o Humanizador mostra o trabalho: a primeira reescrita, uma crítica curta do que ainda soa artificial e a versão final. Aponte-o para um arquivo e ele muda só a prosa, deixando código, dados, metadados e destinos de links em paz. Escrita pessoal mantém as opiniões e as manias do autor. Prosa técnica e de referência fica neutra e simples.
 
-## The 26 patterns
+## Os 26 padrões
 
-The patterns are numbered by strength and frequency. The first five justify an edit on a single sighting. Patterns marked *weak alone* count only when several tells share a passage, because a careful writer may use any one of them on purpose.
+Os padrões estão numerados por força e frequência. Os cinco primeiros justificam uma edição com uma só ocorrência. Os padrões marcados *fraco sozinho* contam só quando vários sinais dividem o mesmo trecho, porque um autor cuidadoso pode usar qualquer um deles de propósito.
 
-### A. Staging instead of stating
+### A. Encenar em vez de afirmar
 
-| # | Pattern | Before | After |
-|---|---------|--------|-------|
-| 1 | **Not X but Y** | "It's not just X, it's Y", "This doesn't mean X. It means Y." | State the point directly |
-| 2 | **One-line closers and dramatic fragments** | "That is the real win." after every section; "This shows the importance of..." after an example; "No prior. No nostalgia." | Cut the closer that repeats or explains the example; merge fragments into a specific claim |
-| 3 | **Sayings that sound deep** | "At its core, what matters is...", "Symmetry is the language of trust" | Replace the saying with the specific claim |
-| 4 | **Staged run-up before the point** | "Let's dive in", "Honestly? It depends..." | Remove the run-up and state the point |
-| 5 | **Arguing with no one** | "This isn't mainly about...", "A tempting approach would be..." | Remove the unraised objection or fake option; keep any real claim |
+| # | Padrão | Antes | Depois |
+|---|--------|-------|--------|
+| 1 | **Não é X, é Y** | "Não é apenas X, é Y", "Isso não significa X. Significa Y.", "Mais do que X, Y" | Diga o ponto diretamente |
+| 2 | **Frases de fechamento e fragmentos dramáticos** | "Essa é a verdadeira vitória." depois de toda seção; "Isso mostra a importância de..." depois de um exemplo; "Sem viés. Sem nostalgia." | Corte o fechamento que repete ou explica o exemplo; junte os fragmentos em uma afirmação específica |
+| 3 | **Frases que soam profundas** | "Em sua essência, o que realmente importa é...", "Simetria é a linguagem da confiança" | Troque a frase de efeito pela afirmação específica |
+| 4 | **Preparação encenada antes do ponto** | "Vamos mergulhar", "Vale ressaltar que...", "Sinceramente? Depende..." | Remova a preparação e diga o ponto |
+| 5 | **Discutir com ninguém** | "Não se trata principalmente de...", "Uma abordagem tentadora seria..." | Remova a objeção não levantada ou a opção falsa; mantenha qualquer afirmação real |
 
-### B. Rhythm by rule
+### B. Ritmo por regra
 
-| # | Pattern | Before | After |
-|---|---------|--------|-------|
-| 6 | **Forced triads** | "innovation, inspiration, and insights"; three examples plus a lesson | Use the number of items the meaning needs |
-| 7 | **Repeated sentence openings** | "She noted... She noted... She filed..." | Merge the sentences or change the subject |
-| 8 | **Dashes as the universal connector** (*weak alone*) | "institutions—not the people—yet this continues—" | Use periods, commas, colons, or parentheses; match a sample that uses dashes |
-| 9 | **Stacked qualifiers** (*weak alone*) | "could potentially possibly be argued" | Keep only qualifiers the source supports |
-| 10 | **Hyphenated pairs everywhere** (*weak alone*) | "the report is high-quality" | Keep the hyphen before the noun or where the dictionary has one |
-| 11 | **Passive voice and missing subjects** (*weak alone*) | "No configuration file needed" | Name the actor when that helps |
+| # | Padrão | Antes | Depois |
+|---|--------|-------|--------|
+| 6 | **Tríades forçadas** | "inovação, inspiração e insights"; três exemplos mais uma lição | Use o número de itens que o sentido pede |
+| 7 | **Aberturas de frase repetidas** | "Ela reparou... Ela reparou... Ela guardou..." | Junte as frases ou mude o sujeito |
+| 8 | **Travessão como conector universal** (*fraco sozinho*) | "as instituições — não as pessoas — e ainda assim —" | Use ponto, vírgula, dois-pontos ou parênteses; iguale uma amostra que usa travessões; mantenha o travessão de diálogo |
+| 9 | **Qualificadores empilhados** (*fraco sozinho*) | "poderia potencialmente, de certa forma, argumentar-se" | Mantenha só os qualificadores que a fonte sustenta |
+| 10 | **Calques do inglês** (*fraco sozinho*) | "endereçar o problema", "entregar valor", "eventualmente o time vai performar" | Use o verbo que um falante usaria: resolver, funcionar, no fim |
+| 11 | **Voz passiva, sujeito indeterminado e sujeito oculto** (*fraco sozinho*) | "Faz-se necessário configurar", "Pode-se observar uma melhora" | Nomeie quem age quando isso ajuda |
 
-### C. Inflation and borrowed authority
+### C. Inflação e autoridade emprestada
 
-| # | Pattern | Before | After |
-|---|---------|--------|-------|
-| 12 | **Overused AI words** | "delve... testament... landscape... showcasing" | Use plain words |
-| 13 | **Inflated significance** | "marking a pivotal moment", "Despite challenges... continues to thrive", "The future looks bright" | Keep the fact and drop the significance; end on the last concrete fact |
-| 14 | **Vague connection or association** | "associated with the leadership of", "in connection with" | State the relationship the source gives |
-| 15 | **Shallow -ing riders** | "symbolizing... reflecting... showcasing..." | Keep only what the source supports |
-| 16 | **Sales language** | "nestled within the breathtaking region" | State what the thing is |
-| 17 | **Borrowed authority** | "Experts believe...", "cited in NYT, BBC, FT, and The Hindu" | Name a real source and what it said, or remove the claim or list |
-| 18 | **Avoiding is, are, and has** | "serves as... features... boasts" | "is... has" |
+| # | Padrão | Antes | Depois |
+|---|--------|-------|--------|
+| 12 | **Palavras típicas de IA** | "robusto... alavancar... nesse sentido... potencializar... cenário" | Use palavras simples |
+| 13 | **Importância inflada** | "marcando um momento decisivo", "Apesar dos desafios... continua a prosperar", "O futuro é promissor" | Mantenha o fato e tire a importância; termine no último fato concreto |
+| 14 | **Conexão ou associação vaga** | "associado à liderança de", "no âmbito de" | Diga a relação que a fonte dá |
+| 15 | **Gerúndios de arremate** | "simbolizando... refletindo... evidenciando..." | Mantenha só o que a fonte sustenta |
+| 16 | **Linguagem de venda** | "aninhada na deslumbrante região" | Diga o que a coisa é |
+| 17 | **Autoridade emprestada** | "Especialistas acreditam...", "citada na Folha, no Estadão, na BBC e no FT" | Nomeie uma fonte real e o que ela disse, ou remova a afirmação ou a lista |
+| 18 | **Evitar é, são e tem** | "serve como... conta com... possui" | "é... tem" |
 
-### D. Formatting by rule
+### D. Formatação por regra
 
-| # | Pattern | Before | After |
-|---|---------|--------|-------|
-| 19 | **Bold as decoration** | "**OKRs**, **KPIs**"; "**Performance:** Performance improved" | Remove the bold; turn a labeled list into prose |
-| 20 | **Decorative headings** | "Strategic Negotiations And Partnerships", "🚀 Launch Phase:", "The decision, on one screen" | Sentence case; remove emojis and arrows; name what the section holds |
-| 21 | **Curly quotation marks** (*weak alone*) | `said “the project”` | `said "the project"` |
+| # | Padrão | Antes | Depois |
+|---|--------|-------|--------|
+| 19 | **Negrito como decoração** | "**OKRs**, **KPIs**"; "**Desempenho:** O desempenho melhorou" | Remova o negrito; transforme a lista rotulada em prosa |
+| 20 | **Títulos decorativos** | "Negociações Estratégicas E Parcerias", "🚀 Fase de Lançamento:", "A decisão, em uma tela" | Maiúscula só na primeira palavra; remova emojis e setas; nomeie o que a seção contém |
+| 21 | **Aspas curvas** (*fraco sozinho*) | `disse “o projeto”` em texto digitado | `disse "o projeto"` |
 
-### E. Leftovers from the chat and the draft
+### E. Sobras do chat e do rascunho
 
-| # | Pattern | Before | After |
-|---|---------|--------|-------|
-| 22 | **Chatbot residue** | "Great question! ... I hope this helps!" | Remove the wrapper and keep the content |
-| 23 | **Knowledge-limit disclaimers and guesses** | "While details are limited in available sources, it appears..." | State what the source shows, or remove the sentence |
-| 24 | **A heading repeated in the first sentence** | "## Performance" + "Speed matters." | Let the heading do the work |
-| 25 | **Writing about the document instead of its subject** | "This function was added to replace...", "compiled from...", "The table below compares..." | Describe the subject; state a convention only when the reader cannot see it |
+| # | Padrão | Antes | Depois |
+|---|--------|-------|--------|
+| 22 | **Resíduo de chatbot** | "Ótima pergunta! ... Espero que ajude!" | Remova a embalagem e mantenha o conteúdo |
+| 23 | **Avisos de limite de conhecimento e chutes** | "Embora os detalhes sejam limitados nas fontes disponíveis, tudo indica que..." | Diga o que a fonte mostra, ou remova a frase |
+| 24 | **Título repetido na primeira frase** | "## Desempenho" + "Velocidade importa." | Deixe o título fazer o trabalho |
+| 25 | **Escrever sobre o documento em vez de sobre o assunto** | "Esta função foi adicionada para substituir...", "Neste artigo, vamos abordar...", "A tabela abaixo compara..." | Descreva o assunto; declare uma convenção só quando o leitor não a vê |
 
-### F. Writing for the wrong reader
+### F. Escrever para o leitor errado
 
-| # | Pattern | Before | After |
-|---|---------|--------|-------|
-| 26 | **Re-explaining what the reader knows** | A reply that walks the diagnosis and proves the plan works before the decision | Lead with the decision; leave the diagnosis and the proof for the ticket that follows |
+| # | Padrão | Antes | Depois |
+|---|--------|-------|--------|
+| 26 | **Reexplicar o que o leitor já sabe** | Uma resposta que percorre o diagnóstico e prova que o plano funciona antes da decisão | Abra com a decisão; deixe o diagnóstico e a prova para o ticket que vem depois |
 
-## Full example
+## Exemplo completo
 
-**Before (AI-sounding):**
-> I recently spent five unforgettable days in Lisbon last October, and let me tell you — this city completely stole my heart. From the moment I checked into my charming hotel perched high in the historic Alfama district, I knew I was somewhere truly special.
+**Antes (com cara de IA):**
+> Recentemente passei cinco dias inesquecíveis em Lisboa, em outubro, e vou te contar — essa cidade roubou completamente o meu coração. Desde o momento em que fiz check-in no meu charmoso hotel, empoleirado no alto do histórico bairro de Alfama, soube que estava em um lugar verdadeiramente especial.
 >
-> Yes, the famous hills are challenging — with countless stairs between my hotel and everything else, my legs certainly felt it! — but every climb rewards you with breathtaking, panoramic views that make it all worthwhile.
+> Sim, as famosas ladeiras são desafiadoras — com incontáveis escadas entre o hotel e todo o resto, minhas pernas certamente sentiram! — mas cada subida recompensa com vistas panorâmicas de tirar o fôlego que fazem tudo valer a pena.
 >
-> No trip would be complete without riding the iconic Tram 28, a roughly forty-minute journey shared with plenty of fellow travelers eager to capture the magic. And the food? Simply divine. While the pastéis de nata at Pastéis de Belém are a beloved national treasure, my absolute favorite came from a hidden gem in Graça, still warm from the oven.
+> Nenhuma viagem estaria completa sem um passeio no icônico Elétrico 28, uma jornada de cerca de quarenta minutos dividida com muitos outros viajantes ansiosos para capturar a magia. E a comida? Simplesmente divina. Embora os pastéis de nata da Pastéis de Belém sejam um amado tesouro nacional, vale ressaltar que o meu favorito veio de uma joia escondida na Graça, ainda quente do forno.
 >
-> But what truly makes Lisbon special isn't just the sights — it's the feeling. Wander just a block or two above the main squares and you'll discover a quieter, more authentic side of the city, inviting you to slow down and savor every moment.
+> Mas o que realmente torna Lisboa especial não são apenas os pontos turísticos — é a sensação. Caminhe um ou dois quarteirões acima das praças principais e você descobrirá um lado mais tranquilo e autêntico da cidade, que convida a desacelerar e saborear cada momento.
 >
-> Of course, the must-see São Jorge Castle offers stunning views over the rooftops below. The queues can be long, but the experience is absolutely worth it for any history buff or curious traveler.
+> Claro, o imperdível Castelo de São Jorge oferece vistas deslumbrantes sobre os telhados abaixo. As filas podem ser longas, mas a experiência vale absolutamente a pena para qualquer amante de história ou viajante curioso.
 >
-> Would I go back? Absolutely — next time in spring, and with better shoes! Lisbon isn't just a place to visit; it's a place to fall in love with, again and again. ✨
+> Eu voltaria? Com certeza — da próxima vez na primavera, e com sapatos melhores! Lisboa não é apenas um lugar para visitar; é um lugar para se apaixonar, de novo e de novo. ✨
 
-**After:**
-> I spent five days in Lisbon last October. My hotel was up in Alfama, with a lot of stairs between it and everything else, and my legs felt every one of them. The views from the top were worth the climb.
+**Depois:**
+> Passei cinco dias em Lisboa em outubro. Meu hotel ficava no alto de Alfama, com um monte de escadas entre ele e todo o resto, e minhas pernas sentiram cada uma. As vistas lá de cima compensaram a subida.
 >
-> Everyone tells you to ride Tram 28, so I did. The trip took about forty minutes, and most of the car was other tourists taking pictures out the windows. The custard tarts at Pastéis de Belém are the famous ones, but my favorite came from a place in Graça, still warm from the oven.
+> Todo mundo diz para andar no Elétrico 28, então andei. O trajeto levou uns quarenta minutos, e a maior parte do bonde era de outros turistas tirando foto pela janela. Os pastéis de nata da Pastéis de Belém são os famosos, mas o meu favorito veio de um lugar na Graça, ainda quente do forno.
 >
-> The part of Lisbon I liked best starts a block or two above the main squares, where the streets go quiet and nobody is in a hurry. São Jorge Castle has good views over the rooftops and a long queue to get them.
+> A parte de Lisboa de que mais gostei começa um ou dois quarteirões acima das praças principais, onde as ruas ficam quietas e ninguém tem pressa. O Castelo de São Jorge tem uma boa vista sobre os telhados e uma fila longa para chegar até ela.
 >
-> I'd go back, in spring next time, and with better shoes.
+> Eu voltaria, na primavera da próxima vez, e com sapatos melhores.
 
-## Sources
+## Fontes
 
-- [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) is the source for the pattern list.
-- [WikiProject AI Cleanup](https://en.wikipedia.org/wiki/Wikipedia:WikiProject_AI_Cleanup) maintains the page.
+- [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) é a fonte da lista de padrões.
+- [WikiProject AI Cleanup](https://en.wikipedia.org/wiki/Wikipedia:WikiProject_AI_Cleanup) mantém a página.
+- [blader/humanizer](https://github.com/blader/humanizer) é a skill original em inglês da qual esta versão deriva.
 
-## Version history
+## Histórico de versões
 
-See [CHANGELOG.md](CHANGELOG.md).
+Veja [CHANGELOG.md](CHANGELOG.md).
 
-## License
+## Licença
 
 MIT
 
-If Humanizer helps you, a star helps other people find it.
+Se o Humanizador te ajudou, uma estrela ajuda outras pessoas a encontrá-lo.

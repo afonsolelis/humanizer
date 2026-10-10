@@ -1,44 +1,45 @@
-name: Rewrite problem
-description: A rewrite kept a tell, changed the meaning, added a fact, or over-edited.
+name: Problema na reescrita
+description: Uma reescrita manteve um sinal, mudou o sentido, inventou um fato ou editou demais.
 labels: ["bug"]
 body:
   - type: dropdown
     id: problem
     attributes:
-      label: What went wrong
+      label: O que deu errado
       options:
-        - A tell survived the rewrite
-        - The rewrite added or dropped a fact
-        - The rewrite changed text that was fine
-        - Something else
+        - Um sinal sobreviveu à reescrita
+        - A reescrita acrescentou ou perdeu um fato
+        - A reescrita mudou um texto que estava bom
+        - A reescrita trocou a variante do português ou o registro
+        - Outra coisa
     validations:
       required: true
   - type: textarea
     id: input
     attributes:
-      label: Input text
-      description: The text you gave Humanizer. Remove anything private.
+      label: Texto de entrada
+      description: O texto que você deu ao Humanizador. Remova qualquer coisa privada.
     validations:
       required: true
   - type: textarea
     id: call
     attributes:
-      label: How you called it
-      description: The agent and model you used, and your exact prompt.
-      placeholder: "Claude Code, Opus 5.5: /humanizer then pasted the text"
+      label: Como você chamou
+      description: O agente e o modelo que usou, e o seu prompt exato.
+      placeholder: "Claude Code, Opus 5.5: /humanizador e depois colei o texto"
     validations:
       required: true
   - type: textarea
     id: output
     attributes:
-      label: Output
-      description: What Humanizer returned.
+      label: Saída
+      description: O que o Humanizador devolveu.
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
-      label: What it should have done
-      description: Quote the sentence that is wrong and say what a careful writer would write. Name the pattern number if you know it.
+      label: O que ele deveria ter feito
+      description: Cite a frase errada e diga o que um autor cuidadoso escreveria. Informe o número do padrão se souber.
     validations:
       required: true
